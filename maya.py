@@ -1,7 +1,6 @@
 import streamlit as st
 import pandas as pd
 
-# 🌸 Style personnalisé
 st.markdown("""
     <style>
         /* Arrière-plan principal */
@@ -78,7 +77,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-# ⚖️ Pondération des critères
 criteria_weights = {
     "Présentation": 0.2,
     "Clarté": 0.3,
@@ -86,22 +84,17 @@ criteria_weights = {
     "Réactivité aux questions": 0.1
 }
 
-# 📝 Titre
 st.title("Évaluation des courtiers par le jury")
 
-# 📊 Session State pour stocker les résultats
 if "resultats" not in st.session_state:
     st.session_state.resultats = []
 
-# 👤 Nom du courtier
 courtier = st.text_input("Nom du courtier :")
 
-# 📈 Saisie des notes
 notes = {}
 for critere in criteria_weights:
     notes[critere] = st.slider(f"{critere} (sur 10)", 0, 10, 5)
 
-# ✅ Enregistrement
 if st.button("Enregistrer l'évaluation"):
     if courtier.strip() == "":
         st.warning("Veuillez entrer le nom du courtier.")
@@ -115,7 +108,6 @@ if st.button("Enregistrer l'évaluation"):
         st.session_state.resultats.append(evaluation)
         st.success(f"Évaluation enregistrée pour {courtier} ({round(score_final, 2)}/10)")
 
-# 📋 Tableau des résultats
 if st.session_state.resultats:
     st.subheader("Courtiers évalués")
     df_resultats = pd.DataFrame(st.session_state.resultats)
